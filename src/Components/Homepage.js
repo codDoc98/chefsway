@@ -1,3 +1,12 @@
+//sign in
+//sign up
+//search bar-click to pop up sign up
+//two posts featured
+//sign in/up asked after 10sec
+//viewed before sign in after log out
+
+
+
 import logo from './images/logo5.png';
 import food1 from './images/food3.jpg';
 import food2 from './images/food1.jpg';
