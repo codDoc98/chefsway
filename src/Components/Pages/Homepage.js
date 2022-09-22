@@ -1,4 +1,4 @@
-//sign in
+/* //sign in
 //sign up
 //search bar-click to pop up sign up
 //two posts featured
@@ -16,7 +16,7 @@ import {Col,Image,Form,Container,Row, Button, Modal, Stack} from 'react-bootstra
 
 function Homepage(props) {
     const[user,setUser]=useState({
-        /* profileimg:"", */name:"",contact:"", email:"", password:""});
+        /* profileimg:"", name:"",contact:"", email:"", password:""});
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -97,6 +97,28 @@ function Homepage(props) {
         
         </Container>
         
+    );
+}
+
+export default Homepage; */
+
+import React from 'react';
+import { Container, Row } from 'react-bootstrap';
+import NavigationBar from '../NavigationBar';
+
+import './Homepage.css';
+
+function Homepage(props) {
+    return (
+        <Container fluid className='backmost'>
+            <div id='horiz' />
+            <Container md={6}  className='main'>
+                <NavigationBar />
+            </Container>
+            
+
+        </Container>
+           
     );
 }
 
