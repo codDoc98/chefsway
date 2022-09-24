@@ -3,20 +3,23 @@
 //search bar-click to pop up sign up
 //two posts featured
 //sign in/up asked after 10sec
-//viewed before sign in after log out
+//viewed before sign in after log out*/
 
 
 
-import logo from './images/logo5.png';
-import food1 from './images/food3.jpg';
-import food2 from './images/food1.jpg';
-import food3 from './images/food2.png';
-import React ,{useState}from 'react';
-import {Col,Image,Form,Container,Row, Button, Modal, Stack} from 'react-bootstrap'
+import food1 from '../../images/food4.jpg';
+import food2 from '../../images/food1.jpg';
+import dalroti from "../../images/dishpic1.jpg"
+import logo from "../../images/Daniel Gallego.png"
+
+import React, { useState } from 'react';
+import { Button, Carousel, Container, Form, Modal, Row } from 'react-bootstrap';
+import './Homepage.css';
 
 function Homepage(props) {
+
     const[user,setUser]=useState({
-        /* profileimg:"", name:"",contact:"", email:"", password:""});
+        /* profileimg:"",*/ name:"",contact:"", email:"", password:""});
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -27,23 +30,63 @@ function Homepage(props) {
         const{name,value}=e.target;
         setUser({...user, [name]:value});
     };
-
-
     return (
-        <Container fluid >
-            <Row className='Intro'>
-                <Col md={5} className="Tagline">
-                    Is your way Chef's Way?
-                    <pre >
-                        <p style={{fontSize:"30px", color:"whitesmoke"}}>Exchange your recipes here...<br/>
-                        Good Food, Good Mood!!!</p>
-                        <Button variant='warning' onClick={handleShow}>Register</Button>
-                       </pre>
-                </Col>
-                <Col md={7} style={{marginTop:"100px"}}><Image src={logo}></Image> </Col>
-
-            </Row>
-            <Modal show={show} onHide={handleClose}>
+        <>
+        <Container style={{width:"60%"}} className='home-container'>
+        <Carousel className='slider'>
+      <Carousel.Item interval={5000}>
+        <img
+          className="d-block w-100"
+          src={dalroti}
+          alt="First slide"
+          id="carousel"
+        />
+        <img
+          src={logo}
+          alt="chef's way"
+          id="stamp"
+        />
+        <Carousel.Caption>
+          <h3>Dal Roti</h3>
+          <p>The staple diet.</p> <Button variant='warning' onClick={handleShow}>Register</Button>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item interval={5000}>
+        <img
+          className="d-block w-100"
+          src={food1}
+          alt="Second slide"
+          id="carousel"
+        />
+        <img
+          src={logo}
+          alt="chef's way"
+          id="stamp"
+        />
+        <Carousel.Caption>
+          <h3>Allo Masala Sandwich</h3>
+          <p>Every Household Breakfast.</p><Button variant='warning' onClick={handleShow}>Register</Button>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src={food2}
+          alt="Third slide"
+          id="carousel"
+        />
+        <img
+          src={logo}
+          alt="chef's way"
+          id="stamp"
+        />
+        <Carousel.Caption>
+          <h3>Paneer Butter Masala with Nan</h3>
+          <p>Restaurant's must in menu "PANEER"</p><Button variant='warning' onClick={handleShow}>Register</Button>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+    <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>
@@ -88,36 +131,8 @@ function Homepage(props) {
                 <Button variant="secondary" onClick={handleClose}>Close</Button>
             </Modal.Footer>
         </Modal>
-        <Stack  style={{textAlign:"center"}}>
-            <Image id='post' src={food1}></Image>
-            <Image id='post' src={food2}></Image>
-            <Image id='post' src={food3}></Image>
-        </Stack>
-                
-        
         </Container>
-        
-    );
-}
-
-export default Homepage; */
-
-import React from 'react';
-import { Container, Row } from 'react-bootstrap';
-import NavigationBar from '../NavigationBar';
-
-import './Homepage.css';
-
-function Homepage(props) {
-    return (
-        <Container fluid className='backmost'>
-            <div id='horiz' />
-            <Container md={6}  className='main'>
-                <NavigationBar />
-            </Container>
-            
-
-        </Container>
+        </>
            
     );
 }

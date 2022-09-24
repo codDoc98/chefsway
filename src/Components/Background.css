@@ -1,0 +1,39 @@
+.backmost{
+    height: 100vh;
+    background-color: rgb(237, 237, 237);
+    position: fixed;
+    top: 0px;
+    padding: 0px !important;
+    box-sizing: border-box;
+    border: none; 
+    z-index: -100;
+    
+}
+#horiz{
+    height: 45vh;
+    min-width: 100%;
+    position: fixed;
+    background-color: rgba(3, 135, 3, 0.814);
+    margin-top: 10% ; 
+    box-sizing: border-box;
+    border: none;   
+    z-index: -100;
+
+}
+#logo{
+    height: 90px;
+    width:95px;
+    margin-top: 2px;
+    float: left;
+    padding-left: 5px;
+}
+.main{
+    height: auto;
+    width: 60%; 
+    background-color: rgb(255, 255, 255);
+    margin:0px;
+    padding: 0px !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}

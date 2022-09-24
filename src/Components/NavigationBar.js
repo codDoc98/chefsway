@@ -1,23 +1,27 @@
 //navigates to everywhere except homepage
 //has log out button
 import React from 'react';
-import { Button, Col, Container,  Form, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import search from '../images/search2.png';
+import Feed from './Pages/Feed';
+import { Button, Col,   Form,  Nav, Navbar, NavDropdown, Row} from 'react-bootstrap';
 
 function NavigationBar(props) {
     return (
+        <>
         
+          
             <Navbar bg="dark" expand="md" variant="dark" id='nav' style={{width:"100%",margin:"0px", boxSizing:"border-box", borderTopLeftRadius:"10px", borderTopRightRadius:"10px"}}>
-          <Nav className="me-auto "  style={{ width:"99%"}}>
+          <Nav  className="me-auto "  style={{ width:"99%"}}>
                 
           <Col md={2}>
-            <Nav.Link href="#home">HOME</Nav.Link>
+            <Nav.Link  href="/">HOME</Nav.Link>
             </Col>
             
             <Col md={2}>
             <Nav.Link href="#mypost">MY POST</Nav.Link>
             </Col>
             <Col md={2}>
-            <Nav.Link href="#feed">FEED</Nav.Link>
+            <Nav.Link href="/feed">FEED</Nav.Link>
             </Col>
             <Col md={2}>
             <NavDropdown
@@ -38,12 +42,15 @@ function NavigationBar(props) {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline">
+              <img src={search} alt="Search" style={{height:"40px",width:"40px", marginTop:'-15px'}}/>
+            </Button>
           </Form>
           </Col>
           </Nav>
           
       </Navbar>
+      </>
     );
 }
 
