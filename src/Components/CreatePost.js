@@ -9,7 +9,8 @@ function CreatePost() {
     <form>
   <div class="form-group">
     <label for="exampleFormControlInput1">Recipe Name</label>
-    <input type="recipename" class="form-control" id="exampleFormControlInput1" placeholder="Name"></input>
+    <input type="recipename" class="form-control" id="exampleFormControlInput1" placeholder="Name" required></input>
+    
   </div>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Type</label>
@@ -21,17 +22,23 @@ function CreatePost() {
   </div>
  
   <div class="form-group">
+    {/* <label for="exampleFormControlTextarea1">Ingrediants</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" required></textarea> */}
     <label for="exampleFormControlTextarea1">Ingrediants</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+  <input type="text" class="form-control" placeholder="Ingrediants" aria-label="Ingrediants"  required aria-describedby="button-addon2"></input>
+  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
+
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Method</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" required></textarea>
   </div>
   <div class="form-group">
-    <label for="exampleFormControlFile1">Example file input</label>
+    <label for="exampleFormControlFile1">Upload image</label>
     <input type="file" class="form-control-file" id="exampleFormControlFile1"></input>
   </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  
 </form>
 </div>
   )
