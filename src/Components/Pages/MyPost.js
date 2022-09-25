@@ -2,24 +2,25 @@
 //navbar
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import NavigationBar from '../NavigationBar';
-import logo from '../../images/logo.png';
-import './Homepage.css';
+import './Feed.css';
 
-function Feed(props) {
-    return (
-        <>
-        <Container fluid className='backmost'>
-            <div id='horiz' />
-        </Container>
-        <Container md={6}  className='main'>
-        <img src ={logo} alt="Chef'sWay" id="logo" />
+import CreatePost from '../CreatePost';
 
-                <NavigationBar />
-                
-        </Container> 
-        </>
-    );
+
+
+
+function MyPost() {
+  return (
+    <Container className='feed-container' >
+    <CreatePost/>
+</Container>
+   
+
+  )
 }
 
-export default Feed;
+export default MyPost
+
+
+
+

@@ -18,7 +18,7 @@ function NavigationBar(props) {
             </Col>
             
             <Col md={2}>
-            <Nav.Link href="#mypost">MY POST</Nav.Link>
+            <Nav.Link href="/mypost">MY POST</Nav.Link>
             </Col>
             <Col md={2}>
             <Nav.Link href="/feed">FEED</Nav.Link>
