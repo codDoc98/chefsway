@@ -2,7 +2,6 @@
 //has log out button
 import React from 'react';
 import search from '../images/search2.png';
-import Feed from './Pages/Feed';
 import { Button, Col,   Form,  Nav, Navbar, NavDropdown, Row} from 'react-bootstrap';
 
 function NavigationBar(props) {
@@ -29,7 +28,7 @@ function NavigationBar(props) {
               title="ME"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action 1">My Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
               
               <NavDropdown.Item href="#action 2">Log Out</NavDropdown.Item>
               </NavDropdown>

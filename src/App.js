@@ -4,6 +4,7 @@ import Homepage from './Components/Pages/Homepage';
 import Feed from './Components/Pages/Feed';
 import Background from './Components/Background';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Profile from './Components/Pages/Profile';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
            <Route path='/' exact element={ <Homepage />} /> 
            <Route path='/feed' exact element={ <Feed />} /> 
+           <Route path='/profile' exact element={ <Profile />} /> 
            </Routes>
       </div>
       </Router>
