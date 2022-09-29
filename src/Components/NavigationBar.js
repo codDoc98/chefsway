@@ -28,7 +28,7 @@ function NavigationBar(props) {
               title="ME"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/profile/:id">My Profile</NavDropdown.Item>
               
               <NavDropdown.Item href="#action 2">Log Out</NavDropdown.Item>
               </NavDropdown>

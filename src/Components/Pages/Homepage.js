@@ -30,6 +30,7 @@ function Homepage(props) {
     const handleShow = () => setShow(true)
     const handleSignup = () => setSignup(!signup)
     const [signup,setSignup]=useState(true);
+    //const [emailExists,setEmailExists]=useState(false);
 
 
     const handleInputs=(e)=>{
@@ -42,23 +43,49 @@ function Homepage(props) {
     };
 
     const onSubmit=async(e)=>{
-      const res= await axios.post("http://localhost:8080/user",user);
-      if(Object.keys(res.data).length>0){
-        let result=JSON.stringify(res.data);
-        result=result.replace("{","");
-        result=result.replace("}","");
-        result=result.replaceAll("\"","");
-        result=result.replaceAll(",","\n");
-        return alert(result);
-        
-      }
-      else{
-        handleClose();
-      }      
+      const resp= await axios.get("http://localhost:8080/users",user);
+      resp.data.forEach(element => {
+        if((element.email)===(user.email)){
+          return alert("Email Already Exists");
+        }
+        else{
+          const postIt=async()=>{
+            const res= await axios.post("http://localhost:8080/user",user);
+            if(Object.keys(res.data).length>0){
+              let result=JSON.stringify(res.data);
+              result=result.replace("{","");
+              result=result.replace("}","");
+              result=result.replaceAll("\"","");
+              result=result.replaceAll(",","\n");
+              return alert(result);
+            }
+            else{
+              handleClose();
+            }      
+          }
+        }
+      });
+      
     }
     const signin=async(e)=>{
-      //const res= await axios.get("http://localhost:8080/user",user);
-         
+      e.preventDefault();
+      const resp= await axios.get("http://localhost:8080/users",user);
+      resp.data.forEach(element => {
+        if((element.email)===(member.email) ){
+
+          if((element.password)===(member.password))
+          {
+            const email=element.email;
+            navigate(`/profile/${email}`,{state:{currentUser: element}})
+            //<Profile element />
+          }
+          else
+            return alert("Password Incorrect");
+        }
+        else
+          return alert("Sign Up please");
+              
+      })
     }
 
 
