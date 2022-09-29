@@ -22,24 +22,48 @@ function Homepage(props) {
 
     let navigate=useNavigate();
 
-    const[user,setUser]=useState({
-        /* profileimg:"",*/ name:"",gender:"", email:"", password:""});
+    const[user,setUser]=useState({/* profileimg:"",*/ name:"",gender:"", email:"", password:"",dob:"",isChef:""});
+    const[member,setMember]=useState({ email:"", password:""});
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true)
+    const handleSignup = () => setSignup(!signup)
+    const [signup,setSignup]=useState(true);
 
 
     const handleInputs=(e)=>{
         const{name,value}=e.target;
         setUser({...user, [name]:value});
     };
+    const handleInput=(e)=>{
+        const{name,value}=e.target;
+        setMember({...member, [name]:value});
+    };
 
     const onSubmit=async(e)=>{
-      await axios.post("http://localhost:8080/user",user)
-      handleClose();
-      
+      const res= await axios.post("http://localhost:8080/user",user);
+      if(Object.keys(res.data).length>0){
+        let result=JSON.stringify(res.data);
+        result=result.replace("{","");
+        result=result.replace("}","");
+        result=result.replaceAll("\"","");
+        result=result.replaceAll(",","\n");
+        return alert(result);
+        
+      }
+      else{
+        handleClose();
+      }      
     }
+    const signin=async(e)=>{
+      //const res= await axios.get("http://localhost:8080/user",user);
+         
+    }
+
+
+
+
     return (
         <>
         <Container style={{width:"60%"}} className='home-container'>
@@ -105,20 +129,43 @@ function Homepage(props) {
             <Modal.Header closeButton>
               <Modal.Title>Register</Modal.Title>
             </Modal.Header>
+            <div>
+            {signup ?
             <Modal.Body>
               <Form >
                 <Form.Group className="mb-3" controlId="name">
-                  <Form.Label>Name</Form.Label>
+                  <Form.Label>Name<span style={{color:"red"}}>*</span></Form.Label>
                   <Form.Control required name='name' value={user.name}  onChange={handleInputs} type="text" placeholder="Enter your name" />
+                </Form.Group>                
+                <Form.Group className="mb-3" controlId="formGridEmail">
+                  <Form.Label>Email<span style={{color:"red"}}>*</span></Form.Label>
+                  <Form.Control required name="email" value={user.email} onChange={handleInputs} type="email" placeholder="Enter email" />
+                  <Form.Control.Feedback type="invalid">
+                  Please provide a valid email.
+                  </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group required className="mb-3" controlId="gender">
+                <Form.Group className="mb-3" controlId="formGridPassword">
+                  <Form.Label>Password<span style={{color:"red"}}>*</span></Form.Label>
+                  <Form.Control required name="password" value={user.password} onChange={handleInputs} type="password" placeholder="Password" />
+                  <Form.Control.Feedback type="invalid">
+                  Please provide a valid password.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="dob">
+                  <Form.Label>D.O.B.<span style={{color:"red"}}>*</span></Form.Label>
+                  <Form.Control required name="dob" value={user.dob} onChange={handleInputs} type="date"  />
+                  <Form.Control.Feedback type="invalid">
+                  Please provide your date of birth.
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group  className="mb-3" controlId="gender">
                   <Form.Label>Gender</Form.Label>
                     <div key={`inline-radio`} className="mb-3">
                       <Form.Check
                         inline
                         required
                         label="Female"
-                        name="group1"
+                        name="gender"
                         type="radio"
                         value="female"
                         id={`inline-radio-1`}
@@ -127,7 +174,7 @@ function Homepage(props) {
                         inline
                         label="Male"
                         value="male"
-                        name="group1"
+                        name="gender"
                         type="radio"
                         id={`inline-radio-2`}
                       />
@@ -135,6 +182,7 @@ function Homepage(props) {
                         inline
                         label="Others"
                         value="others"
+                        name="gender"
                         type="radio"
                         id={`inline-radio-3`}
                       />
@@ -143,23 +191,58 @@ function Homepage(props) {
                   Choose one
                   </Form.Control.Feedback>
                 </Form.Group>
+                <Form.Group required className="mb-3" name="isChef" controlId="isChef">
+                  <Form.Label>Are you a chef?<span style={{color:"red"}}>*</span></Form.Label>
+                    <div key={`inline-radio`} className="mb-3">
+                      <Form.Check
+                        inline
+                        required
+                        label="Yes"
+                        name="isChef"
+                        type="radio"
+                        value="Yes"
+                        id={`inline-radio-4`}
+                      />
+                      <Form.Check
+                        inline
+                        label="No"
+                        value="No"
+                        name="isChef"
+                        type="radio"
+                        id={`inline-radio-5`}
+                      />
+                    </div>
+                  <Form.Control.Feedback type="invalid">
+                  Choose one
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Button variant="primary"  onClick={(e)=>{onSubmit(e);} }  type="submit">Sign Up</Button>
+                <Button variant="light" style={{marginLeft:"5px"}}  onClick={handleSignup }  type="submit">Sign In</Button>
+              </Form>
+            </Modal.Body>
+            :
+            <Modal.Body>
+              <Form >       
                 <Form.Group className="mb-3" controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control required name="email" value={user.email} onChange={handleInputs} type="email" placeholder="Enter email" />
+                  <Form.Control required name="email" value={member.email} onChange={handleInput} type="email" placeholder="Enter email" />
                   <Form.Control.Feedback type="invalid">
                   Please provide a valid email.
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGridPassword">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control required name="password" value={user.password} onChange={handleInputs} type="password" placeholder="Password" />
+                  <Form.Control required name="password" value={member.password} onChange={handleInput} type="password" placeholder="Password" />
                   <Form.Control.Feedback type="invalid">
                   Please provide a valid password.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Button variant="primary"  onClick={(e)=>{/* onSubmit(e)  */console.log(e) } }  type="submit">Sign Up</Button>
+                <Button variant="primary"  onClick={(e)=>{signin(e);} }  type="submit">Sign In</Button>
+                <Button variant="light" style={{marginLeft:"5px"}} onClick={handleSignup }  type="submit">Sign Up</Button>
               </Form>
             </Modal.Body>
+            } 
+            </div>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>Close</Button>
             </Modal.Footer>
@@ -169,6 +252,7 @@ function Homepage(props) {
         </>
 
     );
+    
 }
 
 export default Homepage;
