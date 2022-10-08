@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import './App.css';
 import Homepage from './Components/Pages/Homepage';
 import Feed from './Components/Pages/Feed';
@@ -16,6 +17,7 @@ function App() {
         <Background />
       <Routes>
            <Route path='/' exact element={ <Homepage />} /> 
+           <Route path='/CreatePost' exact element ={<CreatePost/>}/>
            <Route path='/feed' exact element={ <Feed />} /> 
            <Route path='/mypost' exact element={ <MyPost />} /> 
            </Routes>
