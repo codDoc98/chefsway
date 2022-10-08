@@ -11,22 +11,31 @@ import food1 from '../../images/food4.jpg';
 import food2 from '../../images/food1.jpg';
 import dalroti from "../../images/dishpic1.jpg"
 import logo from "../../images/Daniel Gallego.png"
+import chefdecuisine from '../../images/chefkiss.png';
+import souschef from '../../images/Sous-Chef.jpg';
+import chefdepartie from '../../images/commis-chef.png';
 
 import React, { useState } from 'react';
-import { Button, Carousel, Container, Form, Modal,  } from 'react-bootstrap';
-import './Homepage.css';
+import { Button, Card, Carousel, Container, Form, Modal, Row,  } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+import './Homepage.css';
+
+
 
 function Homepage(props) {
 
     let navigate=useNavigate();
 
-    const[user,setUser]=useState({/* profileimg:"",*/ name:"",gender:"", email:"", password:"",dob:"",isChef:""});
+    const[user,setUser]=useState({/* profileimg:"",*/ name:"",gender:"", email:"", password:"",dob:"",isChef:false});
     const[member,setMember]=useState({ email:"", password:""});
     const [show, setShow] = useState(false);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+
+    };
     const handleShow = () => setShow(true)
     const handleSignup = () => setSignup(!signup)
     const [signup,setSignup]=useState(true);
@@ -43,38 +52,47 @@ function Homepage(props) {
     };
 
     const onSubmit=async(e)=>{
+      let email=false;
       const resp= await axios.get("http://localhost:8080/users",user);
       resp.data.forEach(element => {
         if((element.email)===(user.email)){
-          return alert("Email Already Exists");
+          email=true;
+        }});
+        if (email){
+          return alert("Email Already Exists"); 
         }
-        else{
-          const postIt=async()=>{
-            const res= await axios.post("http://localhost:8080/user",user);
-            if(Object.keys(res.data).length>0){
-              let result=JSON.stringify(res.data);
-              result=result.replace("{","");
-              result=result.replace("}","");
-              result=result.replaceAll("\"","");
-              result=result.replaceAll(",","\n");
-              return alert(result);
-            }
-            else{
-              handleClose();
-            }      
-          }
-        }
-      });
-      
+         else{
+          postIt();       
+        };     
     }
+    const postIt=async()=>{
+          
+      const res= await axios.post("http://localhost:8080/user",user);
+      if(!((Object.keys(res.data)).includes("id"))){
+        let result=JSON.stringify(res.data);
+        result=result.replace("{","");
+        result=result.replace("}","");
+        result=result.replaceAll("\"","");
+        result=result.replaceAll(",","\n");
+        return alert(result);
+      }
+      else{
+        handleClose();
+        document.getElementsByClassName("input").innerHTML="";
+        return alert("Sign-in to access your account");
+        
+      }  
+    }  
     const signin=async(e)=>{
       e.preventDefault();
       const resp= await axios.get("http://localhost:8080/users",user);
+      let emailExists=false;
       resp.data.forEach(element => {
         if((element.email)===(member.email) ){
 
           if((element.password)===(member.password))
           {
+            emailExists=true;
             const email=element.email;
             navigate(`/profile/${email}`,{state:{currentUser: element}})
             //<Profile element />
@@ -82,10 +100,9 @@ function Homepage(props) {
           else
             return alert("Password Incorrect");
         }
-        else
-          return alert("Sign Up please");
-              
-      })
+      });
+      if(!emailExists)
+      return alert("Sign Up please");     
     }
 
 
@@ -152,6 +169,48 @@ function Homepage(props) {
           </Carousel>
 
 
+
+          <Row className='cards' >
+            <h2>Chef Rankings</h2>
+            <Card id = "ranking" style={{ width: '17.9rem' }} >
+              <Card.Img variant="top" src={chefdecuisine} style={{ width: '17.8rem', height:'16rem' }} />
+              <Card.Body>
+                <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Cuisine</Card.Title>
+                <Card.Text>
+                  People are counting on you for recipes.
+                  You have earned the most of chef's kisses.
+                  CONGRATULATIONS!🎉 There's only one head chef and it's you.
+                  Keep up the streak of chef's kiss to be here...
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id = "ranking" style={{ width: '17.9rem' }}>
+              <Card.Img variant="top" src={souschef} style={{ width: '17.8rem', height:'16rem' }} />
+              <Card.Body>
+                <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Sous Chef</Card.Title>
+                <Card.Text>
+                  Delicious and Exquisite is what I hear about your dishes.
+                  You are a true chef for sure, the head chef competition has just spiced up more with your arrival.
+                  The only ways to win here is by hook or by cook.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card id = "ranking" style={{ width: '17.9rem' }}>
+              <Card.Img variant="top" src={chefdepartie} style={{ width: '17.8rem', height:'16rem' }} />
+              <Card.Body>
+                <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Partie</Card.Title>
+                <Card.Text>
+                  Toque Blanche and apron is your attire here.
+                  Flavour is all that is talked about.
+                  Kitchen is your destination.
+                  Search your fav recipes and post the ones you excel in.
+                  So, what are you cooking today?
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Row>
+
+
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Register</Modal.Title>
@@ -162,18 +221,18 @@ function Homepage(props) {
               <Form >
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label>Name<span style={{color:"red"}}>*</span></Form.Label>
-                  <Form.Control required name='name' value={user.name}  onChange={handleInputs} type="text" placeholder="Enter your name" />
+                  <Form.Control required name='name' /* onSubmit={(e)=>{e.target.value=""}} */ value={user.name}   onChange={handleInputs} type="text" placeholder="Enter your name" />
                 </Form.Group>                
                 <Form.Group className="mb-3" controlId="formGridEmail">
                   <Form.Label>Email<span style={{color:"red"}}>*</span></Form.Label>
-                  <Form.Control required name="email" value={user.email} onChange={handleInputs} type="email" placeholder="Enter email" />
+                  <Form.Control required name="email" className='input' value={user.email} onChange={handleInputs} type="email" placeholder="Enter email" />
                   <Form.Control.Feedback type="invalid">
                   Please provide a valid email.
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGridPassword">
                   <Form.Label>Password<span style={{color:"red"}}>*</span></Form.Label>
-                  <Form.Control required name="password" value={user.password} onChange={handleInputs} type="password" placeholder="Password" />
+                  <Form.Control required name="password" className='input' value={user.password} onChange={handleInputs} type="password" placeholder="Password" />
                   <Form.Control.Feedback type="invalid">
                   Please provide a valid password.
                   </Form.Control.Feedback>
@@ -185,7 +244,7 @@ function Homepage(props) {
                   Please provide your date of birth.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group  className="mb-3" controlId="gender">
+                <Form.Group  className="mb-3" controlId="gender" onChange={handleInputs}>
                   <Form.Label>Gender</Form.Label>
                     <div key={`inline-radio`} className="mb-3">
                       <Form.Check
@@ -218,7 +277,7 @@ function Homepage(props) {
                   Choose one
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group required className="mb-3" name="isChef" controlId="isChef">
+                <Form.Group required className="mb-3" name="isChef" controlId="isChef" onChange={handleInputs}>
                   <Form.Label>Are you a chef?<span style={{color:"red"}}>*</span></Form.Label>
                     <div key={`inline-radio`} className="mb-3">
                       <Form.Check
@@ -227,13 +286,13 @@ function Homepage(props) {
                         label="Yes"
                         name="isChef"
                         type="radio"
-                        value="Yes"
+                        value={true}
                         id={`inline-radio-4`}
                       />
                       <Form.Check
                         inline
                         label="No"
-                        value="No"
+                        value={false}
                         name="isChef"
                         type="radio"
                         id={`inline-radio-5`}

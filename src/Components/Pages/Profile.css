@@ -1,0 +1,43 @@
+.profile-container{
+    height: 100vh;
+    width: 60% !important;
+    padding: 0% !important;
+    background-color: white;
+    margin-bottom: 2px;
+    border-bottom-left-radius: 10px;    
+    border-bottom-right-radius: 10px;
+}
+.cards{
+    width: 100%;
+    position: relative;
+    left: 12px;
+    padding: 10px;
+    font-family: 'Tangerine', cursive;
+    text-shadow: 2px 2px 2px rgb(45, 229, 45);
+    text-align: center;
+    box-shadow: inset 5px;
+    overflow: clip;
+    color: rgba(3, 135, 3, 0.814);
+
+}
+#ranking{
+    box-shadow: 2px 2px 2px rgb(211, 210, 210);
+    background-color:azure;
+    font-family: 'Montserrat', sans-serif;
+    font-size:large;
+    text-shadow: none;
+    font-weight: 700;
+    margin: 5px;
+    text-align: justify;
+    align-self: center;
+    align-items: center;
+    color: black;
+    
+}
+#ranking.chef{
+    border: solid 2px;
+    border-color: gold ;
+    background-color: rgba(255, 235, 120, 0.54);
+
+}
+
