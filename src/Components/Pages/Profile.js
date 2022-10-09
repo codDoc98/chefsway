@@ -1,4 +1,4 @@
-//user detail
+//currentUser detail
 //specific user url
 //performs RUD operations
 //navbar: mypost feed profile
@@ -6,9 +6,11 @@
 
 // import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import './Profile.css';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import chefdecuisine from '../../images/chefkiss.png';
 import souschef from '../../images/Sous-Chef.jpg';
@@ -17,29 +19,37 @@ import chefdepartie from '../../images/commis-chef.png';
 
 function Profile(props) {
     const location = useLocation();
-    const { currentUser } = location.state
-    const user=JSON.stringify(currentUser)
-    const [isChef, setIsChef]=useState(false);
+    const currentUser = location.state.currentUser;
+
+    const [ user , setUser] = useState(location.state);
+    const {name,email,password,dob,isChef,gender}=currentUser;
+    const [ischef, setIsChef]=useState(false);
+    const [readonly, setReadOnly]=useState(true);
+    
 
     const checkChef=()=>{
-      console.log(currentUser);
-      if(currentUser.isChef==="Yes")
+      if(isChef==="Yes")
         setIsChef(true);
 
       else
         setIsChef(false);
     }
+
+    const handleInputs=(e)=>{
+      const{name,value}=e.target;
+      setUser({...currentUser, [name]:value});
+  };
    
     useEffect(()=>{
         checkChef();
-    },[]);
+    });
 
     return (
         <Container className='profile-container' >
              <Row className='cards' >
-            <h2>Your Chef Ranking</h2>
-            <Card id = "ranking" style={{ width: '17.9rem' }} >
-              <Card.Img variant="top" src={chefdecuisine} style={{ width: '17.7rem', height:'16rem' }} />
+            <h2 style={{color:"gold", textShadow: "1px 1px 1px gold"}}>Golden Card indicates your Rank</h2>
+            <Card id = "ranking" style={{ width: '14rem' }} >
+              <Card.Img variant="top" src={chefdecuisine} style={{ width: '13.9rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Cuisine</Card.Title>
                 <Card.Text>
@@ -50,8 +60,8 @@ function Profile(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card id = "ranking" className={isChef?"chef":""} style={{ width: '17.9rem' }}>
-              <Card.Img variant="top" src={souschef} style={{ width: '17.7rem', height:'16rem' }} />
+            <Card id = "ranking" className={ischef?"chef":""} style={{ width: '14rem' }}>
+              <Card.Img variant="top" src={souschef} style={{ width: '13.9rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Sous Chef</Card.Title>
                 <Card.Text>
@@ -61,8 +71,8 @@ function Profile(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card id = "ranking" className={isChef?"":"chef"} style={{ width: '17.9rem' }}>
-              <Card.Img variant="top" src={chefdepartie} style={{ width: '17.7rem', height:'16rem' }} />
+            <Card id = "ranking" className={ischef?"":"chef"} style={{ width: '14rem' }}>
+              <Card.Img variant="top" src={chefdepartie} style={{ width: '13.9rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Partie</Card.Title>
                 <Card.Text>
@@ -75,6 +85,101 @@ function Profile(props) {
               </Card.Body>
             </Card>
           </Row>
+          {readonly?
+          <RateReviewIcon
+          color="success"
+          fontSize="large"
+          onClick={()=>{setReadOnly(!readonly)}}
+          style={{float:"left", marginLeft:"15px"}} />
+          :
+          <icon>
+          <RateReviewIcon
+          color="success"
+          fontSize="large"
+          onClick={()=>{setReadOnly(!readonly)}}
+          style={{float:"left", marginLeft:"10px", pointer:"cursor"}} />
+          <CancelIcon
+          color="success"
+          fontSize="large"
+          onClick={()=>{setReadOnly(true)}}
+          style={{float:"right", marginRight:"15px", pointer:"cursor"}} />
+          </icon>
+          }
+         
+          
+          {readonly?
+          <Row className='accountInfo'>   
+            
+              <Col mb-3>
+            <Form.Group className="mb-3" controlId="name">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control  name='name' /* onSubmit={(e)=>{e.target.value=""}} */ value={name}   readOnly type="text"  />
+                </Form.Group>   
+                <Form.Group className="mb-3" controlId="dob">
+                  <Form.Label>D.O.B.</Form.Label>
+                  <Form.Control  name="dob" value={dob} readOnly type="date"  />
+                </Form.Group> 
+                <Form.Group className="mb-3" controlId="gender">
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Control  name="gender" value={gender} readOnly type="text"  />
+                </Form.Group> 
+                
+                </Col>  
+                <Col>       
+                <Form.Group className="mb-3" controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control  name="email"  value={email} readOnly type="email"  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGridPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control  name="password"  value={password} readOnly type="password" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="ischef">
+                  <Form.Label>Chef ?</Form.Label>
+                  <Form.Control  name="isChef"  value={isChef} readOnly type="text" />
+                </Form.Group>
+                </Col> 
+                </Row>
+                :
+                
+                <Row className='accountInfo'>   
+            
+              <Col mb-3>
+            <Form.Group className="mb-3" controlId="name">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control  name='name' /* onSubmit={(e)=>{e.target.value=""}} */ value={name}   onChange={handleInputs} type="text"  />
+                </Form.Group>   
+                <Form.Group className="mb-3" controlId="dob">
+                  <Form.Label>D.O.B.</Form.Label>
+                  <Form.Control  name="dob" value={dob} onChange={handleInputs} type="date"  />
+                </Form.Group> 
+                <Form.Group className="mb-3" controlId="gender">
+                  <Form.Label>Gender</Form.Label>
+                  <Form.Control  name="gender" value={gender} onChange={handleInputs} type="text"  />
+                </Form.Group> 
+                
+                </Col>  
+                <Col>       
+                <Form.Group className="mb-3" controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control  name="email"  value={email} onChange={handleInputs} type="email"  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formGridPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control  name="password"  value={currentUser.password} onChange={handleInputs} type="password" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="ischef">
+                  <Form.Label>Chef ?</Form.Label>
+                  <Form.Control  name="isChef"  value={isChef} onChange={handleInputs} type="text" />
+                </Form.Group>
+                </Col> 
+                <Row style={{width:"100%"}}>
+                  <Button variant='success' style={{width:"100px", margin:"auto"}}>Save</Button>
+                </Row>
+                </Row>
+                
+          }
+          
         </Container>
     );
 }
