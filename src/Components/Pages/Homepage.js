@@ -94,7 +94,7 @@ function Homepage(props) {
           {
             emailExists=true;
             const email=element.email;
-            navigate(`/profile/${email}`,{state:{currentUser: element}})
+            navigate(`/${email}`,{state:{currentUser: element}})
             //<Profile element />
           }
           else
@@ -286,13 +286,13 @@ function Homepage(props) {
                         label="Yes"
                         name="isChef"
                         type="radio"
-                        value={true}
+                        value="yes"
                         id={`inline-radio-4`}
                       />
                       <Form.Check
                         inline
                         label="No"
-                        value={false}
+                        value="no"
                         name="isChef"
                         type="radio"
                         id={`inline-radio-5`}

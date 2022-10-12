@@ -3,14 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import search from '../images/search2.png';
 import { Button, Col,   Form,  Nav, Navbar, NavDropdown} from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function NavigationBar(props) {
 
   const [disbled,setDisabled]=useState(false);
   const location=useLocation();
+  let  currentUser ;
+  const navigate=useNavigate();
 
-  
+  const navigator=()=>{
+    navigate(`/${currentUser.email}`,{state:{currentUser: currentUser}}); 
+   }
 
   useEffect(()=>{
     if(window.location.pathname==="/"){
@@ -18,6 +22,7 @@ function NavigationBar(props) {
     }
     else{
       setDisabled(false);
+      currentUser = location.state.currentUser;
     }
   },[location])
 
@@ -44,7 +49,7 @@ function NavigationBar(props) {
               title="ME"
               menuVariant="dark" 
             >
-              <NavDropdown.Item href="/profile/:id" className={disbled?"disabled":""}>My Profile</NavDropdown.Item>
+              <NavDropdown.Item onClick={navigator} className={disbled?"disabled":""}>My Profile</NavDropdown.Item>
               
               <NavDropdown.Item href="/" className={disbled?"disabled":""}>Log Out</NavDropdown.Item>
               </NavDropdown>

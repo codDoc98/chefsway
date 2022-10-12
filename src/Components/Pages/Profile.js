@@ -3,14 +3,14 @@
 //performs RUD operations
 //navbar: mypost feed profile
 
-
-// import axios from 'axios';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Profile.css';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import chefdecuisine from '../../images/chefkiss.png';
 import souschef from '../../images/Sous-Chef.jpg';
@@ -19,15 +19,15 @@ import chefdepartie from '../../images/commis-chef.png';
 
 function Profile(props) {
     const location = useLocation();
-    const currentUser = location.state.currentUser;
-
-    const [ user , setUser] = useState(location.state);
-    const {name,email,password,dob,isChef,gender}=currentUser;
+    const [ currentUser , setCurrentUser] = useState(location.state.currentUser);
+    const {id,name,email,password,dob,isChef,gender}=currentUser;
     const [ischef, setIsChef]=useState(false);
     const [readonly, setReadOnly]=useState(true);
+    const navigate=useNavigate();
     
 
     const checkChef=()=>{
+      console.log(currentUser)
       if(isChef==="Yes")
         setIsChef(true);
 
@@ -37,12 +37,32 @@ function Profile(props) {
 
     const handleInputs=(e)=>{
       const{name,value}=e.target;
-      setUser({...currentUser, [name]:value});
+      setCurrentUser({...currentUser, [name]:value});
   };
+
+  const deleteAccount=async(e)=>{
+    let res = await axios.delete(`http://localhost:8080/user/${id}`);
+    navigate("/");
+    res=JSON.stringify(res);
+    return alert(res);
+    
+    
+
+  }
+
+  const onSave=async(e)=>{
+
+    e.preventDefault();
+    await axios.put(`http://localhost:8080/user/${id}`,currentUser);
+    setReadOnly(true);
+
+  }
    
     useEffect(()=>{
         checkChef();
     });
+
+
 
     return (
         <Container className='profile-container' >
@@ -86,11 +106,18 @@ function Profile(props) {
             </Card>
           </Row>
           {readonly?
+          <icon>
           <RateReviewIcon
           color="success"
           fontSize="large"
           onClick={()=>{setReadOnly(!readonly)}}
           style={{float:"left", marginLeft:"15px"}} />
+          <DeleteForeverIcon
+          color="#fc0303"
+          fontSize='large'
+          style={{marginLeft:"10px"}}
+          onClick={(e)=>{deleteAccount(e)}} />
+          </icon>
           :
           <icon>
           <RateReviewIcon
@@ -174,7 +201,7 @@ function Profile(props) {
                 </Form.Group>
                 </Col> 
                 <Row style={{width:"100%"}}>
-                  <Button variant='success' style={{width:"100px", margin:"auto"}}>Save</Button>
+                  <Button variant='success' onClick={(e)=>{onSave(e)}} style={{width:"100px", margin:"auto"}}>Save</Button>
                 </Row>
                 </Row>
                 

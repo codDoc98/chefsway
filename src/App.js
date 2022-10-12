@@ -15,7 +15,7 @@ function App() {
       <Routes>
            <Route path='/' exact element={ <Homepage />} /> 
            <Route path='/feed' exact element={ <Feed />} /> 
-           <Route path='/profile/:id' exact element={ <Profile />} /> 
+           <Route path='/:id' exact element={ <Profile />} /> 
 
            </Routes>
       </div>
