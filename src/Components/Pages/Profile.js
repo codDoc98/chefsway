@@ -27,8 +27,7 @@ function Profile(props) {
     
 
     const checkChef=()=>{
-      console.log(currentUser)
-      if(isChef==="Yes")
+      if(isChef==="yes")
         setIsChef(true);
 
       else
@@ -43,7 +42,7 @@ function Profile(props) {
   const deleteAccount=async(e)=>{
     let res = await axios.delete(`http://localhost:8080/user/${id}`);
     navigate("/");
-    res=JSON.stringify(res);
+    res=JSON.stringify(res.data);
     return alert(res);
     
     
@@ -68,8 +67,8 @@ function Profile(props) {
         <Container className='profile-container' >
              <Row className='cards' >
             <h2 style={{color:"gold", textShadow: "1px 1px 1px gold"}}>Golden Card indicates your Rank</h2>
-            <Card id = "ranking" style={{ width: '14rem' }} >
-              <Card.Img variant="top" src={chefdecuisine} style={{ width: '13.9rem', height:'12rem' }} />
+            <Card id = "ranking" style={{ width: '13.6rem' }} >
+              <Card.Img variant="top" src={chefdecuisine} style={{ width: '13.6rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Cuisine</Card.Title>
                 <Card.Text>
@@ -80,8 +79,8 @@ function Profile(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card id = "ranking" className={ischef?"chef":""} style={{ width: '14rem' }}>
-              <Card.Img variant="top" src={souschef} style={{ width: '13.9rem', height:'12rem' }} />
+            <Card id = "ranking" className={ischef?"chef":""} style={{ width: '13.6rem' }}>
+              <Card.Img variant="top" src={souschef} style={{ width: '13.6rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Sous Chef</Card.Title>
                 <Card.Text>
@@ -91,8 +90,8 @@ function Profile(props) {
                 </Card.Text>
               </Card.Body>
             </Card>
-            <Card id = "ranking" className={ischef?"":"chef"} style={{ width: '14rem' }}>
-              <Card.Img variant="top" src={chefdepartie} style={{ width: '13.9rem', height:'12rem' }} />
+            <Card id = "ranking" className={ischef?"":"chef"} style={{ width: '13.6rem' }}>
+              <Card.Img variant="top" src={chefdepartie} style={{ width: '13.6rem', height:'12rem' }} />
               <Card.Body>
                 <Card.Title style={{fontWeight:"bold", textShadow:" 2px 2px 2px #aaa"}}>Chef De Partie</Card.Title>
                 <Card.Text>
@@ -100,7 +99,7 @@ function Profile(props) {
                   Flavour is all that is talked about.
                   Kitchen is your destination.
                   Search your fav recipes and post the ones you excel in.
-                  So, what are you cooking today?
+                  Congratulations on start of your chef's journey!!! 
                 </Card.Text>
               </Card.Body>
             </Card>
