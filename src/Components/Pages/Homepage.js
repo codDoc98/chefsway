@@ -237,10 +237,10 @@ function Homepage(props) {
             {signup ?
             <Modal.Body>
               <Form >
-              <Form.Group controlId="formFileSm" className="mb-3">
+              {/* <Form.Group controlId="formFileSm" className="mb-3">
                   <Form.Label>Select Profile Image</Form.Label>
                   <Form.Control onChange={(e)=>{onPicSelect(e)}} type="file" size="sm" />
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label>Name<span style={{color:"red"}}>*</span></Form.Label>
                   <Form.Control required name='name' /* onSubmit={(e)=>{e.target.value=""}} */ value={user.name}   onChange={handleInputs} type="text" placeholder="Enter your name" />
