@@ -39,8 +39,26 @@ function Homepage(props) {
     const handleShow = () => setShow(true)
     const handleSignup = () => setSignup(!signup)
     const [signup,setSignup]=useState(true);
-    //const [emailExists,setEmailExists]=useState(false);
 
+    const onPicSelect=(e)=>{
+      // if(e.target.files){
+        console.log(e)
+        
+      const file0=e.target.files[0]
+      let data = new FormData();
+      data.append('file',file0)
+
+      setTimeout(()=>{console.log(data.has("file"))},2000)
+      // const options={
+        // onUploadProgress:(ProgressEvent)=>{
+          // const {loaded,total}=ProgressEvent
+          // let percent=Math.floor(loaded*10/total)
+          // console.log(`${loaded}kb of ${total}kb | ${percent}%`)
+          // const res= axios.put("http://localhost:8080/files",data,options)
+          // console.log(res)
+        // }
+      // }
+      }
 
     const handleInputs=(e)=>{
         const{name,value}=e.target;
@@ -125,7 +143,7 @@ function Homepage(props) {
               id="stamp"
               />
               <Carousel.Caption>
-                <h3>Dal Roti</h3>
+                <h4>Dal Roti</h4>
                 <p>The staple diet of every Indian Household.</p>
                 <Button variant='warning' onClick={handleShow}>Register</Button>
               </Carousel.Caption>
@@ -143,7 +161,7 @@ function Homepage(props) {
               id="stamp"
               />
               <Carousel.Caption>
-                <h3>Aloo Masala Sandwich</h3>
+                <h4>Aloo Masala Sandwich</h4>
                 <p>Breakfast in Bed or Aloo in Bread? Pick one.</p>
                 <Button variant='warning' onClick={handleShow}>Register</Button>
               </Carousel.Caption>
@@ -161,7 +179,7 @@ function Homepage(props) {
               id="stamp"
               />
               <Carousel.Caption>
-                <h3>Paneer Butter Masala with Nan</h3>
+                <h4>Paneer Butter Masala with Nan</h4>
                 <p>Restaurant's must in menu "PANEER"</p>
                 <Button variant='warning' onClick={handleShow}>Register</Button>
               </Carousel.Caption>
@@ -219,6 +237,10 @@ function Homepage(props) {
             {signup ?
             <Modal.Body>
               <Form >
+              {/* <Form.Group controlId="formFileSm" className="mb-3">
+                  <Form.Label>Select Profile Image</Form.Label>
+                  <Form.Control onChange={(e)=>{onPicSelect(e)}} type="file" size="sm" />
+                </Form.Group> */}
                 <Form.Group className="mb-3" controlId="name">
                   <Form.Label>Name<span style={{color:"red"}}>*</span></Form.Label>
                   <Form.Control required name='name' /* onSubmit={(e)=>{e.target.value=""}} */ value={user.name}   onChange={handleInputs} type="text" placeholder="Enter your name" />

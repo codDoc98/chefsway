@@ -30,7 +30,7 @@ function NavigationBar(props) {
         <>
         
           
-            <Navbar bg="dark" expand="md" variant="dark" id='nav' style={{width:"100%",margin:"0px", boxSizing:"border-box", borderTopLeftRadius:"10px", borderTopRightRadius:"10px"}}>
+        <Navbar bg="dark" expand="md" variant="dark" id='nav' style={{width:"100%",height:"40px",margin:"0px", boxSizing:"border-box", borderTopLeftRadius:"10px", borderTopRightRadius:"10px"}}>
           <Nav  className="me-auto "  style={{ width:"99%"}}>
                 
           <Col md={2}>
@@ -61,9 +61,10 @@ function NavigationBar(props) {
               placeholder="Search"
               className="me-2" 
               aria-label="Search"
+              style={{height:"35px",marginTop:"2px"}}
             />
             <Button variant="outline" className={disbled?"disabled":""}>
-              <img src={search} alt="Search" style={{height:"40px",width:"40px", marginTop:'-15px'}}/>
+            <img src={search} alt="Search" style={{height:"25px",width:"25px", marginTop:'-8px'}}/>
             </Button>
           </Form>
           </Col>

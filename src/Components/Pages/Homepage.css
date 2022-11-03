@@ -11,21 +11,26 @@
 }
 .slider{
     padding: 0px !important;
+    text-align: center;
+    align-items: center;
 }
 #carousel{
     height: 45vh;
     width: 100%;
     margin-top: 3px;
+    text-align: center;
+    align-items: center;
+    align-content: center;
 }
 #stamp{
-    height: 150px;
-    width: 150px;
+    height: 80px;
+    width: 80px;
     align-self: center;
     border-radius: 50%;
     opacity: 0.9;
     position: absolute;
-    top:20px;
-    left: 40%;
+    top:15px;
+    left: 45%;
     
 
 }
