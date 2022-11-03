@@ -27,8 +27,8 @@ function Profile(props) {
     
 
     const checkChef=()=>{
-      console.log(currentUser)
-      if(isChef==="Yes")
+      //console.log(currentUser)
+      if(isChef==="yes")
         setIsChef(true);
 
       else
@@ -43,7 +43,7 @@ function Profile(props) {
   const deleteAccount=async(e)=>{
     let res = await axios.delete(`http://localhost:8080/user/${id}`);
     navigate("/");
-    res=JSON.stringify(res);
+    res=JSON.stringify(res.data);
     return alert(res);
     
     
